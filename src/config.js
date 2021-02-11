@@ -2,13 +2,13 @@ module.exports = {
     startmsg() {
         console.log(`Bot has been started...`)
     },
-    TOKEN: ``,
+    TOKEN: `1172794219:AAH6OjXfr0Wgo03Zz-5QJjt34TYtyF2WGCo`,
     sqlConnect() {
         const mysql = require("mysql2");
         const connection = mysql.createConnection({
             host: "localhost",
             user: "root",
-            database: "datingbot",
+            database: "marathon",
             password: "root"
         });
         connection.connect(function(err) {

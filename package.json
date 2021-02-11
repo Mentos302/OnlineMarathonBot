@@ -12,6 +12,7 @@
     "license": "ISC",
     "dependencies": {
         "mysql2": "^2.2.5",
+        "node-schedule": "^2.0.0",
         "nodemon": "^2.0.7",
         "telegraf": "^3.38.0"
     }
