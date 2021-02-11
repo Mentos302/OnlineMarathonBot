@@ -19,7 +19,7 @@ module.exports = {
             } else {
                 ctx.scene.state.passtries++
                     if (ctx.scene.state.passtries > 5) {
-                        ctx.reply(`FUCK YOU HACKER`)
+                        ctx.reply(`HACKER, STOP!`)
                     } else {
                         ctx.reply(params.assets.passreq())
                     }
