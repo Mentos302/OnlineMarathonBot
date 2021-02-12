@@ -17,6 +17,8 @@ module.exports = {
         const adminLogin = require('../scenes/AdminPanel/adminLogin').f(params)
         const adminMain = require('../scenes/AdminPanel/adminMain').f(params)
         const adminSending = require('../scenes/AdminPanel/adminSending').f(params)
+
+        // Admin Blocks Editing
         const adminEditing = require('../scenes/AdminPanel/adminEditing').f(params)
         const adminEdUpdate = require('../scenes/AdminPanel/BlocksEditing/adminEdUpdate').f(params)
         const adminEdTitleChng = require('../scenes/AdminPanel/BlocksEditing/Title/adminEdTitleChng').f(params)
@@ -27,6 +29,13 @@ module.exports = {
         const adminEdDelBtn = require('../scenes/AdminPanel/BlocksEditing/Delete/adminEdDelBtn').f(params)
         const adminEdBtnChoose = require('../scenes/AdminPanel/BlocksEditing/adminEdBtnChoose').f(params)
         const adminEdDelay = require('../scenes/AdminPanel/BlocksEditing/Delay/adminEdDelay').f(params)
+
+        // Admin Sending
+        const spamAudience = require('../scenes/AdminPanel/Sending/spamAudience').f(params)
+        const spamMessage = require('../scenes/AdminPanel/Sending/spamMessage').f(params)
+        const spamMethod = require('../scenes/AdminPanel/Sending/spamMethod').f(params)
+        const spamAddBtns = require('../scenes/AdminPanel/Sending/spamAddBtns').f(params)
+        const spamConfirmation = require('../scenes/AdminPanel/Sending/spamConfirmation').f(params)
 
         const stage = new Stage([
             regWelcMsg,
@@ -44,7 +53,12 @@ module.exports = {
             adminEdEdBtnLink,
             adminEdDelBtn,
             adminEdBtnChoose,
-            adminEdDelay
+            adminEdDelay,
+            spamAudience,
+            spamMessage,
+            spamMethod,
+            spamAddBtns,
+            spamConfirmation,
         ], { ttl: 120 })
 
         params.bot.use(session())

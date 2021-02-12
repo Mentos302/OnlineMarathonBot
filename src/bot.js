@@ -12,6 +12,6 @@ config.startmsg()
 let params = { db, bot, login, assets, sql }
 
 scenes.f(params)
-bot.on('message', (ctx) => login.f(params, ctx))
+bot.on('message', (ctx) => login.f(ctx, params))
 bot.catch(e => console.log(e))
 bot.launch()

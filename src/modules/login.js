@@ -1,5 +1,5 @@
 module.exports = {
-    f(params, ctx) {
+    f(ctx, params) {
         params.db.query(params.sql.getClient(ctx.from.id), function(err, r) {
             if (r.length) {
                 console.log('Є ТАКИЙ')
