@@ -3,6 +3,7 @@ module.exports = {
         const adminEdUpdate = new params.Scene('admin-edupdt')
 
         adminEdUpdate.enter((ctx) => {
+            console.log(ctx.scene.state)
             if (ctx.scene.state.cliname) {
                 ctx.scene.state.maintextout = `<b>Ім'я клієнта</b>, ` + ctx.scene.state.maintext
                 params.db.query(params.sql.changeCliNameAblt(ctx.scene.state.id, true), function(err, r) {
@@ -14,21 +15,39 @@ module.exports = {
             }
 
             function preview() {
-                ctx.reply(params.assets.blockprevw(ctx.scene.state), params.Extra.HTML().markup((m) =>
-                    m.inlineKeyboard([
-                        [m.callbackButton(params.assets.upd1(), `ed1`)],
-                        [m.callbackButton(params.assets.upd2(), `ed2`),
-                            m.callbackButton(params.assets.upd3(), `ed3`),
-                            m.callbackButton(params.assets.upd4(), `ed4`)
-                        ],
-                        [m.callbackButton(params.assets.addcliname(), `ed6`),
-                            m.callbackButton(params.assets.removecliname(), `ed7`)
-                        ],
-                        [m.callbackButton(params.assets.upd5(), `ed5`),
-                            m.callbackButton(params.assets.edexit(), `exit`)
-                        ],
-                    ])
-                ))
+                if (ctx.scene.state.photo != 0) {
+                    ctx.replyWithPhoto(ctx.scene.state.photo, params.Extra.HTML().markup((m) =>
+                        m.inlineKeyboard([
+                            [m.callbackButton(params.assets.upd1(), `ed1`)],
+                            [m.callbackButton(params.assets.upd2(), `ed2`),
+                                m.callbackButton(params.assets.upd3(), `ed3`),
+                                m.callbackButton(params.assets.upd4(), `ed4`)
+                            ],
+                            [m.callbackButton(params.assets.addcliname(), `ed6`),
+                                m.callbackButton(params.assets.removecliname(), `ed7`)
+                            ],
+                            [m.callbackButton(params.assets.upd5(), `ed5`),
+                                m.callbackButton(params.assets.edexit(), `exit`)
+                            ],
+                        ])
+                    ).caption(ctx.scene.state.maintext))
+                } else {
+                    ctx.reply(params.assets.blockprevw(ctx.scene.state), params.Extra.HTML().markup((m) =>
+                        m.inlineKeyboard([
+                            [m.callbackButton(params.assets.upd1(), `ed1`)],
+                            [m.callbackButton(params.assets.upd2(), `ed2`),
+                                m.callbackButton(params.assets.upd3(), `ed3`),
+                                m.callbackButton(params.assets.upd4(), `ed4`)
+                            ],
+                            [m.callbackButton(params.assets.addcliname(), `ed6`),
+                                m.callbackButton(params.assets.removecliname(), `ed7`)
+                            ],
+                            [m.callbackButton(params.assets.upd5(), `ed5`),
+                                m.callbackButton(params.assets.edexit(), `exit`)
+                            ],
+                        ])
+                    ))
+                }
             }
         })
         adminEdUpdate.action('ed1', (ctx) => ctx.scene.enter(`admin-edt-title`, ctx.scene.state))

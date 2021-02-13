@@ -4,7 +4,7 @@ module.exports = {
         const spamAction = require('./spamAction')
 
         spamConfirmation.enter((ctx) => {
-            if (ctx.scene.state.date) {
+            if (ctx.scene.state.send_date) {
                 ctx.reply(params.assets.spamconfirmdelay(ctx.scene.state), params.Extra.HTML().markup((m) =>
                     m.inlineKeyboard([
                         [m.callbackButton(params.assets.conf(), `confirmdel`)],
