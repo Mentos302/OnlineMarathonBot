@@ -10,11 +10,8 @@ config.startmsg()
 
 let params = { bot, login, assets, sql }
 
-scenes.f(params)
-bot.on('message', (ctx) => {
-    login.f(ctx, params)
-        // ctx.scene.enter('admin-main')
-})
-bot.on('callback_query', (ctx) => login.f(ctx, params))
+scenes.f(params, config)
+bot.on('message', ctx => login.f(ctx, params))
+bot.on('callback_query', ctx => login.f(ctx, params))
 bot.catch(e => console.log(e))
 bot.launch()

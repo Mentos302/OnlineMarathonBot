@@ -14,6 +14,7 @@ module.exports = {
                         [m.callbackButton(`${r[3].maintext.substr(0, 32)} ...`, `ed4`)],
                         [m.callbackButton(`${r[4].maintext.substr(0, 32)} ...`, `ed5`)],
                         [m.callbackButton(`${r[5].maintext.substr(0, 32)} ...`, `ed6`)],
+                        [m.callbackButton(`${r[6].maintext.substr(0, 32)} ...`, `ed7`)],
                         [m.callbackButton(params.assets.edexit(), `exit`)],
                     ])
                 ))
@@ -25,6 +26,7 @@ module.exports = {
         adminEditing.action('ed4', (ctx) => ctx.scene.enter(`admin-edupdt`, ctx.scene.state.blocks[3]))
         adminEditing.action('ed5', (ctx) => ctx.scene.enter(`admin-edupdt`, ctx.scene.state.blocks[4]))
         adminEditing.action('ed6', (ctx) => ctx.scene.enter(`admin-edupdt`, ctx.scene.state.blocks[5]))
+        adminEditing.action('ed7', (ctx) => ctx.scene.enter(`admin-edupdt`, ctx.scene.state.blocks[6]))
         adminEditing.action('exit', (ctx) => ctx.scene.enter('admin-main'))
 
         return adminEditing

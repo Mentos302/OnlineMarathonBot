@@ -1,5 +1,5 @@
 module.exports = {
-    async f(params) {
+    async f(params, config) {
         const session = require('telegraf/session')
         const Stage = require('telegraf/stage')
         params.Scene = require('telegraf/scenes/base')
@@ -63,7 +63,10 @@ module.exports = {
 
         params.bot.use(session())
         params.bot.use(stage.middleware())
-        params.bot.command('admin', (ctx) => ctx.scene.enter('admin-login'))
+        params.bot.command('admin', (ctx) => {
+            params.db = config.sqlConnect();
+            ctx.scene.enter('admin-login')
+        })
         params.bot.catch(e => {
             console.log(e)
         })

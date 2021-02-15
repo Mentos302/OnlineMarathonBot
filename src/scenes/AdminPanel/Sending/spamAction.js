@@ -1,4 +1,5 @@
 async function f(ctx, params) {
+    const config = require('../config')
 
     function sleep(ms) {
         return new Promise(resolve => {
@@ -8,12 +9,25 @@ async function f(ctx, params) {
 
     for (let i = 0; i < ctx.scene.state.audience.length; i++) {
         if (ctx.scene.state.cliname) {
-            params.db.query(params.sql.getClient(ctx.scene.state.audience[i].chat_id), function(err, r) {
-                let msg = {...ctx.scene.state.spam_msg }
-                msg.text = `<b>${r[0].first_name}</b>, ${ctx.scene.state.spam_msg.text}`
-                msg.caption = `<b>${r[0].first_name}</b>, ${ctx.scene.state.spam_msg.caption}`
-                send(msg)
-            })
+            function getClient() {
+                params.db.query(params.sql.getClient(ctx.scene.state.audience[i].chat_id), function(err, r) {
+                    if (err) {
+                        console.log(err)
+                        params.db = config.sqlConnect();
+                        getClient()
+                    } else {
+                        try {
+                            let msg = {...ctx.scene.state.spam_msg }
+                            msg.text = `<b>${r[0].first_name}</b>, ${ctx.scene.state.spam_msg.text}`
+                            msg.caption = `<b>${r[0].first_name}</b>, ${ctx.scene.state.spam_msg.caption}`
+                            send(msg)
+                        } catch (e) {
+                            console.log(e)
+                        }
+                    }
+                })
+            }
+            getClient()
         } else {
             send(ctx.scene.state.spam_msg)
         }

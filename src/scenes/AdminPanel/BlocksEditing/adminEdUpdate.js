@@ -3,7 +3,6 @@ module.exports = {
         const adminEdUpdate = new params.Scene('admin-edupdt')
 
         adminEdUpdate.enter((ctx) => {
-            console.log(ctx.scene.state)
             if (ctx.scene.state.cliname) {
                 ctx.scene.state.maintextout = `<b>Ім'я клієнта</b>, ` + ctx.scene.state.maintext
                 params.db.query(params.sql.changeCliNameAblt(ctx.scene.state.id, true), function(err, r) {
