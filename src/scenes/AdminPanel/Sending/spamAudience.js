@@ -89,7 +89,7 @@ module.exports = {
                                 res.forEach(e => {
                                     audience.push(e)
                                 });
-                                if (i == darray.length - 1) {
+                                if (i == darray.length) {
                                     ctx.scene.state.audience = audience
                                     ctx.scene.enter('spam_message', ctx.scene.state)
                                 }

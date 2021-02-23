@@ -17,5 +17,7 @@ module.exports = {
     deleteUser(user_id) { return `DELETE FROM users WHERE chat_id='${user_id}` },
 
     getUsersByRegistDate(date) { return `SELECT chat_id FROM users WHERE reg_date = '${date}'` },
-    changeCliNameAblt(block_id, value) { return `UPDATE assets SET cliname = ${value} WHERE id = ${block_id}` }
+    changeCliNameAblt(block_id, value) { return `UPDATE assets SET cliname = ${value} WHERE id = ${block_id}` },
+    newDelay(state) { return `INSERT INTO delay (audience, message, btns, cliname, date) VALUES ('${JSON.stringify(state.audience)}','${JSON.stringify(state.spam_msg)}', '${JSON.stringify(state.btns)}', ${state.cliname}, '${JSON.stringify(state.send_date)}')` },
+    getDelay(date) { return `SELECT * FROM delay WHERE date='${date}'` }
 }

@@ -4,7 +4,7 @@ module.exports = {
 
         regName.enter((ctx) => params.reply.f(ctx, ctx.scene.state.assets[1], 'phone', params)) // Assets ID 2
         regName.on('text', (ctx) => {
-            ctx.scene.state.cliname = ctx.message.text
+            ctx.scene.state.cliname = ctx.from.first_name
             ctx.scene.state.cliphone = ctx.message.text
             ctx.scene.enter(`reg-conf`, ctx.scene.state)
         })

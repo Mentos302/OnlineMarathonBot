@@ -6,6 +6,7 @@ module.exports = {
         params.Extra = require('telegraf/extra')
         params.moment = require('moment')
         params.reply = require('./reply')
+        params.config = config
         const { enter, leave } = Stage
 
         // Registration
@@ -59,7 +60,7 @@ module.exports = {
             spamMethod,
             spamAddBtns,
             spamConfirmation,
-        ], { ttl: 120 })
+        ], { ttl: 15 })
 
         params.bot.use(session())
         params.bot.use(stage.middleware())

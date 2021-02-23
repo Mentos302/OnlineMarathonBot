@@ -21,12 +21,17 @@ module.exports = {
             }
         })
         spamConfirmation.action('confirmdel', async(ctx) => {
-            await spamAction.delay(ctx, params, ctx.scene.state.send_date)
-            ctx.reply(params.assets.spamdelback(ctx.scene.state), params.Extra.HTML().markup((m) =>
-                m.inlineKeyboard([
-                    [m.callbackButton(params.assets.confapprove(), `getback`)]
-                ])
-            ))
+            if (ctx.scene.state.cliname == undefined) { ctx.scene.state.cliname = false }
+            if (ctx.scene.state.btns == undefined) { ctx.scene.state.btns = false }
+            params.db.query(params.sql.newDelay(ctx.scene.state), async function(err, res) {
+                if (err) { console.log(err) }
+                await spamAction.delay(ctx, params, ctx.scene.state.send_date)
+                ctx.reply(params.assets.spamdelback(ctx.scene.state), params.Extra.HTML().markup((m) =>
+                    m.inlineKeyboard([
+                        [m.callbackButton(params.assets.confapprove(), `getback`)]
+                    ])
+                ))
+            })
         })
         spamConfirmation.action('confirmdir', (ctx) => {
             spamAction.f(ctx, params)

@@ -21,6 +21,7 @@ module.exports = {
             ctx.scene.enter('spam_message', ctx.scene.state)
         })
         spamMethod.on('message', (ctx) => {
+            try{
             let date = {}
             let items = ctx.message.text.split(' ')
             date.min = items[1].split('-')[1]
@@ -30,6 +31,9 @@ module.exports = {
             ctx.scene.state.send_date = date
 
             ctx.scene.enter('spam_confirm', ctx.scene.state)
+            } catch {
+                ctx.scene.reenter('spam_method', ctx.scene.state)
+            }
         })
 
 

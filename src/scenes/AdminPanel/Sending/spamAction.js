@@ -1,5 +1,5 @@
 async function f(ctx, params) {
-    const config = require('../config')
+    const config = params.config
 
     function sleep(ms) {
         return new Promise(resolve => {
@@ -64,9 +64,9 @@ async function f(ctx, params) {
                 sleep(50)
             } catch (err) {
                 if (err.response && err.response.error_code === 403) {
-                    params.db.query(params.sql.deleteUser(ctx.scene.state.audience[i].chat_id), async function(err, res) {
-                        console.log(`${ctx.scene.state.audience[i].chat_id} is unSub, so i delete it from DB`)
-                    })
+                    // params.db.query(params.sql.deleteUser(ctx.scene.state.audience[i].chat_id), async function(err, res) {
+                    console.log(`${ctx.scene.state.audience[i].chat_id} is unSub, so i delete it from DB`)
+                        // })
                 }
                 console.log(err.message)
             }
@@ -77,10 +77,21 @@ async function f(ctx, params) {
 
 function delay(ctx, params, date) {
     const schedule = require('node-schedule');
+    let timeToAction = `${date.min} ${parseInt(date.hour)} ${date.day} ${date.month} *`
 
-    const job = schedule.scheduleJob(`${date.min} ${date.hour} ${date.day} ${date.month} *`, function(fireDate) {
-        f(ctx, params)
-    });
+    const job = schedule.scheduleJob(timeToAction, function(fireDate) {
+        params.db = params.config.sqlConnect();
+
+        params.db.query(params.sql.getDelay(JSON.stringify(date)), async function(err, r) {
+            if (err) { console.log(err) }
+            ctx.scene.state.audience = JSON.parse(r[0].audience)
+            ctx.scene.state.spam_msg = JSON.parse(r[0].message)
+            ctx.scene.state.btns = JSON.parse(r[0].btns)
+            ctx.scene.state.cliname = r[0].cliname
+
+            f(ctx, params)
+        })
+    })
 }
 
 module.exports = { f, delay }
